@@ -1,14 +1,34 @@
 #!/bin/sh
-git clone -b 5.2 git@github.com:plone/buildout.coredev.git
+# Install one checkout of buildout.coredev for Python 2 and 3
+# This script uses pyenv to install separate virtualenvs
+TAG=5.2
+PY2=2.7.15
+PY3=3.7.1
+VENVBASE=plone-coredev-$TAG
 
-# for py 2.7
-cd py2
-virtualenv -p `which python2.7` --clear .
-./bin/pip install -r ../buildout.coredev/requirements.txt
-./bin/buildout -N
+git clone -b $TAG git@github.com:plone/buildout.coredev.git
 
-# for py3.6
-cd ../py3
-`which python3.6` -m venv .
-./bin/pip install -r ../buildout.coredev/requirements.txt
-./bin/buildout -N
+eval "$(pyenv init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv virtualenv-init -)"
+
+
+install() {
+    VENV=$VENVBASE-$1
+    echo "---------------------------------------------------------------------------"
+    echo "Install Python $2 into directory $1 using venv $VENV"
+    echo "---------------------------------------------------------------------------"
+    cd $1
+    pyenv install -s $2
+    pyenv virtualenv $VENV
+    pyenv local $VENV
+    pyenv activate $VENV
+    pip install -r ../buildout.coredev/requirements.txt
+    buildout -N
+    pyenv deactivate
+    cd ..
+}
+
+install py2 $PY2
+install py3 $PY3
+
