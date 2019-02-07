@@ -3,7 +3,7 @@
 # This script uses pyenv to install separate virtualenvs
 TAG=5.2
 PY2=2.7.15
-PY3=3.7.1
+PY3=3.7.2
 VENVBASE=plone-coredev-$TAG
 
 cd buildout.coredev
@@ -18,7 +18,7 @@ eval "$(pyenv virtualenv-init -)"
 upgrade() {
     VENV=$VENVBASE-$1
     echo "---------------------------------------------------------------------------"
-    echo "Install Python $2 into directory $1 using venv $VENV"
+    echo "Upgrade Python directory $1 using venv $VENV"
     echo "---------------------------------------------------------------------------"
     cd $1
     pyenv activate $VENV
@@ -28,6 +28,6 @@ upgrade() {
     cd ..
 }
 
-upgrade py2 
-upgrade py3 
+upgrade py2
+upgrade py3
 
