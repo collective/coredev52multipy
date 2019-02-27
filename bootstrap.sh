@@ -19,8 +19,7 @@ install() {
     echo "Install Python $2 into directory $1 using venv $VENV"
     echo "---------------------------------------------------------------------------"
     cd $1
-    pyenv install -s $2
-    pyenv virtualenv $VENV
+    pyenv virtualenv $2 $VENV
     pyenv local $VENV
     pyenv activate $VENV
     pip install -r ../buildout.coredev/requirements.txt
@@ -31,4 +30,3 @@ install() {
 
 install py2 $PY2
 install py3 $PY3
-
