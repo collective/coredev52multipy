@@ -3,7 +3,7 @@
 # This script uses pyenv to install separate virtualenvs
 TAG=5.2
 PY2=2.7.15
-PY3=3.7.1
+PY3=3.7.4
 VENVBASE=plone-coredev-$TAG
 
 git clone -b $TAG git@github.com:plone/buildout.coredev.git
