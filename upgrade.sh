@@ -2,8 +2,8 @@
 # Install one checkout of buildout.coredev for Python 2 and 3
 # This script uses pyenv to install separate virtualenvs
 TAG=5.2
-PY2=2.7.15
-PY3=3.7.4
+PY2=2.7.17
+PY3=3.7.5
 VENVBASE=plone-coredev-$TAG
 
 cd buildout.coredev
